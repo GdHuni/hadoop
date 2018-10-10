@@ -5,6 +5,7 @@ import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.lib.input.CombineTextInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
@@ -36,12 +37,18 @@ public class WordCountJob {
         //5.设置最终输出的数据类型
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
-
+        //设置分区
+        job.setPartitionerClass(WordCountPartition.class);//自定义为自己重写的partition类
+        job.setNumReduceTasks(2);//设置开启reduceTask的数量，要与分区数量一致
+        //设置文件切割机制
+        job.setInputFormatClass(CombineTextInputFormat.class);
+        CombineTextInputFormat.setMaxInputSplitSize(job,10240);
+        CombineTextInputFormat.setMinInputSplitSize(job,512);
         //6.设置输入数据和输出数据的的路径
-        //FileInputFormat.setInputPaths(job, new Path("e://hello.txt"));
-        //FileOutputFormat.setOutputPath(job, new Path("e://outuo"));
-        FileInputFormat.setInputPaths(job, new Path("hdfs://master:9000/input/install.log"));
-        FileOutputFormat.setOutputPath(job, new Path("hdfs://master:9000/outt"));
+        FileInputFormat.setInputPaths(job, new Path("e://input"));
+        FileOutputFormat.setOutputPath(job, new Path("e://out"));
+        //FileInputFormat.setInputPaths(job, new Path("hdfs://master:9000/input/install.log"));
+       // FileOutputFormat.setOutputPath(job, new Path("hdfs://master:9000/outt"));
 
         //7.提交
         boolean result = job.waitForCompletion(true);
