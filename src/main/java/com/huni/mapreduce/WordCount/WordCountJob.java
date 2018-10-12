@@ -37,10 +37,10 @@ public class WordCountJob {
         //5.设置最终输出的数据类型
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
-        //设置分区
+        //自定义设置分区
         job.setPartitionerClass(WordCountPartition.class);//自定义为自己重写的partition类
         job.setNumReduceTasks(2);//设置开启reduceTask的数量，要与分区数量一致
-        //设置文件切割机制
+        //设置文件切割机制,当达到512k时才会去执行切割，最小512k,最大10m
         job.setInputFormatClass(CombineTextInputFormat.class);
         CombineTextInputFormat.setMaxInputSplitSize(job,10240);
         CombineTextInputFormat.setMinInputSplitSize(job,512);
