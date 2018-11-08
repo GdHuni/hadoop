@@ -1,4 +1,4 @@
-package com.huni.mapreduce.flowConbine;
+package com.huni.mapreduce.compareTo;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
