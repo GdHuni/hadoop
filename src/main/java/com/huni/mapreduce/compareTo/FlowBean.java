@@ -80,7 +80,7 @@ public class FlowBean implements WritableComparable<FlowBean> {
         sumFlow=in.readLong();
     }
 
-
+    //重写比较方法,-1为倒序
     @Override
     public int compareTo(FlowBean o) {
         return this.sumFlow>o.getSumFlow() ? -1:1;
