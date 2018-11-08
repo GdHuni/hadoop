@@ -20,8 +20,8 @@ public class FlowJob {
         //4.获取reduce类
         job.setReducerClass(FlowReducer.class);
         //5.获取mapper输出类型
-        job.setMapOutputKeyClass(Text.class);
-        job.setMapOutputValueClass(FlowBean.class);
+        job.setMapOutputKeyClass(FlowBean.class);
+        job.setMapOutputValueClass(Text.class);
         //6.获取最终输出类型
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(FlowBean.class);
