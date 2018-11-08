@@ -1,0 +1,3 @@
+Combiner类继承reduce类，里面的实现与reduce类是一样的，
+在job运行类中添加   job.setCombinerClass(WordCountCombiner.class);
+主要是在map阶段就进行了一次汇总Combine input records=25 Combine output records=18，这个会有值了
