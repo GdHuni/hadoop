@@ -1,0 +1,4 @@
+ 分区：继承Partitioner类根据自己的业务来写逻辑代码，return几个就会有几个分区，
+ 在job运行类中添加下面代码，(分区数要等于maptask)
+ job.setPartitionerClass(WordCountPartition.class);//自定义为自己重写的partition类
+ job.setNumReduceTasks(2);//设置开启reduceTask的数量，要与分区数量一致
