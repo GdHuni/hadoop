@@ -80,7 +80,20 @@ public class FlowBean implements WritableComparable<FlowBean> {
         sumFlow=in.readLong();
     }
 
-    //重写比较方法,-1为倒序
+    /**
+     * compareTo原理·
+     第一步：首先要知道 Collections.sort()方法进行排序的时候，sort里面默认是升序排序。这里一定要记住了。
+     第二步:  compare函数的返回值-1、1、0是什么个意思?
+     返回值为-1, 表示左边的数比右边的数小，左右的数不进行交换。
+     返回值为0, 表示左边的数等于右边的数，左右的数不进行交换。
+     返回值为1, 表示左边的数比右边的数大，左右的数进行交换。(不进行交换的话，就没办法维持升序)
+     上面的例子中this.age可以理解成左边的数，o.age可以理解成右边的数。
+     this.age-o.age>0 说明左边的数比右边的数大，return this.age-o.age 返回的是一个正数，就进行左右交换，所以最终输出是升序。
+     this.age-o.age<0 说明左边的数比右边的数小，return this.age-o.age 返回的是一个负数，不用进行交换，所以最终输出是升序。
+     * @param o
+     * @return
+     */
+    // 所以重写比较方法,-1为倒序
     @Override
     public int compareTo(FlowBean o) {
         return this.sumFlow>o.getSumFlow() ? -1:1;
